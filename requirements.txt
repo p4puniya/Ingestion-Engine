@@ -1,0 +1,17 @@
+pytest
+fastapi
+uvicorn[standard]
+requests
+beautifulsoup4
+pdfplumber
+python-frontmatter
+markdownify
+click
+trafilatura
+mistune
+spacy
+scikit-learn
+lxml
+python-dateutil
+openai
+python-dotenv
