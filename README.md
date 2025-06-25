@@ -3,7 +3,10 @@
 A simple tool to extract and process content from URLs and PDFs.
 
 ## Quick Start
-
+0. **[Optional] Update the .env**
+   ```
+   add the OPENAI API KEY to fetch authors more accurately.
+   ```
 1. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
