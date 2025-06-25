@@ -279,17 +279,26 @@ async def ingest_batch(
     author_mode: str = Form("balanced")
 ):
     all_items = []
+    all_urls = []  # Collect URLs info for output
     
-    # Process URLs
+    # Process URLs with crawling/discovery
     for i, url in enumerate(urls, 1):
-        document = extract_from_url(url)
-        if document and document.get("items"):
-            all_items.extend(document["items"])
-        elif document:
-            # Fallback: try process_and_save logic
-            result = process_and_save(document, url, team_id, content_type="blog", user_id=user_id, chunked=True)
-            if result and result.get("output") and result["output"].get("items"):
-                all_items.extend(result["output"]["items"])
+        # Use the same crawl_urls logic as /ingest/url, but only depth 0 for batch
+        url_html_pairs = crawl_urls(url, 0)
+        for url_entry, html, found_urls in url_html_pairs:
+            all_urls.append({
+                "original_url": url_entry,
+                "depth_level": 0,
+                "found_urls": list(found_urls)
+            })
+            document = extract_from_url(url_entry, html_content=html)
+            if document and document.get("items"):
+                all_items.extend(document["items"])
+            elif document:
+                # Fallback: try process_and_save logic
+                result = process_and_save(document, url_entry, team_id, content_type="blog", user_id=user_id, chunked=True)
+                if result and result.get("output") and result["output"].get("items"):
+                    all_items.extend(result["output"]["items"])
     
     # Process PDFs
     for i, pdf_file in enumerate(pdfs, 1):
@@ -321,11 +330,15 @@ async def ingest_batch(
                 except:
                     pass
     
+    # Remove author_method from all_items if present
+    for item in all_items:
+        if 'author_method' in item:
+            del item['author_method']
+    
     return {
         "team_id": team_id,
         "items": all_items,
-        "total_files_processed": len(urls) + len(pdfs),
-        "total_items_extracted": len(all_items)
+        "urls": all_urls  # Add URLs info to output
     }
 
 @click.group()

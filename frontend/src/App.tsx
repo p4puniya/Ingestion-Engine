@@ -163,7 +163,8 @@ function App() {
 
       const result = await response.json();
       
-      setOutput(result);
+      setOutput({ team_id: result.team_id, items: result.items });
+      if (result.urls) setUrlsData(result.urls);
       setLoading(false);
     } catch (error) {
       console.error('Error:', error);
@@ -473,21 +474,6 @@ function App() {
                       <div style={{ marginBottom: 8 }}>
                         <strong>Author: </strong>
                         <span>{item.author || 'Unknown'}</span>
-                        {item.author_method && (
-                          <span style={{ 
-                            marginLeft: 8, 
-                            padding: '2px 6px', 
-                            borderRadius: '3px', 
-                            fontSize: '11px',
-                            backgroundColor: item.author_method.startsWith('openai') ? '#28a745' : '#ffc107',
-                            color: item.author_method.startsWith('openai') ? 'white' : 'black'
-                          }}>
-                            {item.author_method.startsWith('openai') ? 
-                              `🤖 OpenAI (${item.author_method.replace('openai_', '')})` : 
-                              '📖 Manual'
-                            }
-                          </span>
-                        )}
                       </div>
                       <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>
                         {item.content}
