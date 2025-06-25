@@ -1,6 +1,9 @@
 # Ingestion Engine
 
 A simple tool to extract and process content from URLs and PDFs.
+Please note, when ingesting large amounts of data like Entire Books, The Process can appear as stuck but it is not. Check the terminal where you are running the backend for live progress. 
+
+Also, I suggest using the frontend :)
 
 ## Quick Start
 0. **[Optional] Update the .env & Create a venv**
