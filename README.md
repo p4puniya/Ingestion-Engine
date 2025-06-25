@@ -1,5 +1,8 @@
 # Ingestion Engine
 
+Demo:
+https://www.loom.com/share/8e30ba74ab2b467f8685e4a42a633127?sid=cb951d96-d3de-4945-88dd-5bb999707691
+
 A simple tool to extract and process content from URLs and PDFs.
 Please note, when ingesting large amounts of data like Entire Books, The Process can appear as stuck but it is not. Check the terminal where you are running the backend for live progress. 
 
