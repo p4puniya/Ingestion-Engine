@@ -11,7 +11,7 @@ A simple tool to extract and process content from URLs and PDFs.
 
 2. **Start the backend:**
    ```bash
-   python app.py
+   uvicorn app:app --reload
    ```
 
 3. **Start the frontend:**
