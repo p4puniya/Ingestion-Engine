@@ -3,9 +3,11 @@
 A simple tool to extract and process content from URLs and PDFs.
 
 ## Quick Start
-0. **[Optional] Update the .env**
+0. **[Optional] Update the .env & Create a venv**
    ```
-   add the OPENAI API KEY to fetch authors more accurately.
+   1. python -m venv .myenv
+   2. .myenv\Scripts\activate
+   3. add the OPENAI API KEY to fetch authors more accurately.
    ```
 1. **Install dependencies:**
    ```bash
